@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    {
+      "src": "/(.*\\.(?:css|js|png|jpg|jpeg|svg|webp|gif|ico))",
+      "dest": "/portfolio/$1"
+    },
+    {
+      "src": "/.*",
+      "dest": "/portfolio/index.html"
+    }
+  ]
+}
