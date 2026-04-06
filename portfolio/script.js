@@ -1,9 +1,11 @@
 gsap.registerPlugin(ScrollTrigger);
 
+const isCoarsePointer = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
 const lenis = new Lenis({
-  duration: 1.1,
+  duration: isCoarsePointer ? 0.9 : 1.1,
   smoothWheel: true,
-  smoothTouch: false
+  smoothTouch: isCoarsePointer
 });
 
 lenis.on("scroll", ScrollTrigger.update);
@@ -11,6 +13,12 @@ lenis.on("scroll", ScrollTrigger.update);
 gsap.ticker.add((time) => {
   lenis.raf(time * 1000);
 });
+
+if (isCoarsePointer) {
+  window.addEventListener("scroll", () => {
+    ScrollTrigger.update();
+  }, { passive: true });
+}
 
 gsap.ticker.lagSmoothing(0);
 
